@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gene-fusion-normalizer"
+version = "0.2.1"
+description = "Human fusion splitter & Ensembl mapper with smart hyphen splitting, INTERGENIC/LOC passthrough, and semicolon grouping."
+authors = [{name="NCDC Bioinformatics"}]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+dependencies = [
+    "pandas>=2.0",
+    "openpyxl>=3.1"
+]
+
+[project.scripts]
+gene-fusion-normalizer = "gene_fusion_normalizer.cli:app"
