@@ -25,4 +25,14 @@ pip install -e . \
   => Split all cases and check whether the corresponding gene name is known \
   => If it is an intergenic or RNA name, enter it as is
  
+## Publication context
 
+This repository is a component of the CURE-NGS panel harmonization framework described in the manuscript \"Multi-Institutional Harmonization Framework for Heterogeneous Panel-Based NGS in Precision Oncology.\"
+
+Umbrella repository: https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework
+
+## Software metadata
+
+- Operating system(s): Linux or macOS; Windows users can run the package in a compatible Python environment
+- Programming language(s): Python
+- License: MIT License
