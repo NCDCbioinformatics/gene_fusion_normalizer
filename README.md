@@ -1,4 +1,22 @@
 # gene_fusion_normalizer
+
+> **Reviewer and new-user deployment:** use the supported, version-pinned
+> [CURE-NGS Docker/OCI distribution](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework#reviewer-quick-start).
+> The unified CLI accepts GTF and HGNC files as mounted resources and includes
+> deterministic, direction-preserving fusion-normalization tests.
+
+## Reproducible installation and test data
+
+- [Clean-machine installation](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/INSTALLATION.md)
+- [GENCODE GTF and HGNC resource setup](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/REFERENCE_DATA.md#4-install-gtf-and-hgnc-resources)
+- [Fusion-normalization commands](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/COMMAND_REFERENCE.md#gene-and-fusion-normalization)
+- [Network-free reviewer walkthrough](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/REVIEWER_REPRODUCTION.md)
+- [Synthetic GTF and HGNC fixtures](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/tree/main/examples/synthetic)
+
+The latest audited GitHub release is `gene_fusion_normalizer` (release name
+`gene_fusion_normalizer_0.2.1`). Its immutable identity and asset SHA-256 are
+recorded in the umbrella repository.
+
 <img width="2554" height="915" alt="image" src="https://github.com/user-attachments/assets/75577907-821e-4f22-b301-fd749f971ac4" />
 
 #install 
