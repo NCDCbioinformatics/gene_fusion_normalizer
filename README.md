@@ -1,56 +1,75 @@
 # gene_fusion_normalizer
 
-> **Reviewer and new-user deployment:** use the supported, version-pinned
-> [CURE-NGS Docker/OCI distribution](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework#reviewer-quick-start).
-> The unified CLI accepts GTF and HGNC files as mounted resources and includes
-> deterministic, direction-preserving fusion-normalization tests.
+Direction-preserving fusion-gene normalization component of the CURE-NGS
+panel harmonization framework.
 
-## Reproducible installation and test data
+> **Supported deployment:** use the unified
+> [CURE-NGS Docker/OCI distribution](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework).
+> This repository is retained as component provenance. The supported container
+> package is published only from the umbrella repository; **No packages
+> published** here is therefore expected.
 
-- [Clean-machine installation](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/INSTALLATION.md)
-- [GENCODE GTF and HGNC resource setup](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/REFERENCE_DATA.md#4-install-gtf-and-hgnc-resources)
-- [Fusion-normalization commands](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/COMMAND_REFERENCE.md#gene-and-fusion-normalization)
-- [Network-free reviewer walkthrough](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/REVIEWER_REPRODUCTION.md)
-- [Synthetic GTF and HGNC fixtures](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/tree/main/examples/synthetic)
+## Role in the unified project
 
-The latest audited GitHub release is `gene_fusion_normalizer` (release name
-`gene_fusion_normalizer_0.2.1`). Its immutable identity and asset SHA-256 are
-recorded in the umbrella repository.
+| Item | Value |
+| --- | --- |
+| Historical responsibility | Parse and standardize fusion partners using GTF and HGNC |
+| Supported command | `cure-ngs normalize-fusion` |
+| Latest audited release | `gene_fusion_normalizer` / release name `gene_fusion_normalizer_0.2.1` |
+| Required data | GTF containing `gene_id`/`gene_name` and HGNC complete-set TSV |
 
-<img width="2554" height="915" alt="image" src="https://github.com/user-attachments/assets/75577907-821e-4f22-b301-fd749f971ac4" />
+## Install the supported Docker distribution
 
-#install 
+Install [Docker Desktop](https://docs.docker.com/desktop/) or
+[Docker Engine](https://docs.docker.com/engine/install/), then build:
 
-unzip gene_fusion_normalizer_0.2.1 \
-cd gene_fusion_normalizer \
-pip install -e . \
+```bash
+git clone https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework.git
+cd cure-ngs-panel-harmonization-framework
+docker build --file docker/Dockerfile.core --tag cure-ngs-harmonizer:0.1.0-core .
+```
 
+After release `0.1.0` appears in the umbrella **Packages** panel:
 
+```bash
+docker pull ghcr.io/ncdcbioinformatics/cure-ngs-harmonizer:0.1.0-core
+```
 
-#run --col Automatically recognizes fusion col when no input is provided
+Use the source build while no umbrella package is published.
 
-  gene-fusion-normalizer "/path/gene_fusion_normalizer/gene_split_test.xlsx" \
-  --col "fusion" \
-  --gtf "/path/Homo_sapiens.GRCh38.110.gtf.gz" \
-  --hgnc "/path/hgnc_complete_set.txt" \
-  --explode \
-  -o "/out_path/fusion_mapped.xlsx"
+## Verify and run this capability
 
-  
-# Feature Summary
-- Standardize and separate fusion gene names (geneA-geneB) written in various ways
-- Basically, fusion genes are divided based on "-", but if there are multiple "-" \
-  => Split all cases and check whether the corresponding gene name is known \
-  => If it is an intergenic or RNA name, enter it as is
- 
-## Publication context
+The reviewer walkthrough verifies directional normalization of `EML4-ALK`:
 
-This repository is a component of the CURE-NGS panel harmonization framework described in the manuscript "Multi-Institutional Harmonization Framework for Heterogeneous Panel-Based NGS in Precision Oncology."
+```bash
+bash scripts/run_reviewer_demo.sh
+```
 
-Umbrella repository: https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework
+Direct component command with bundled synthetic resources:
 
-## Software metadata
+```bash
+docker run --rm \
+  --volume "$PWD/examples:/examples:ro" \
+  cure-ngs-harmonizer:0.1.0-core normalize-fusion EML4-ALK \
+  --gtf /examples/synthetic/genes.gtf \
+  --hgnc /examples/synthetic/hgnc.tsv
+```
 
-- Operating system(s): Linux or macOS; Windows users can run the package in a compatible Python environment
-- Programming language(s): Python
-- License: MIT License
+Ambiguous partners are reported instead of guessed, and partner direction is
+retained in the normalized output.
+
+## Historical standalone package
+
+The `gene_fusion_normalizer_0.2.1` release remains available for provenance and
+supports tabular inputs, automatic fusion-column detection, and exploded
+outputs. The release asset is labelled 0.2.1 while its archived internal
+metadata reports 0.2.0; the umbrella release lock preserves both facts.
+
+## Documentation and test data
+
+- [Project structure](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/PROJECT_STRUCTURE.md)
+- [Gene/fusion commands](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/COMMAND_REFERENCE.md#gene-and-fusion-normalization)
+- [GTF and HGNC setup](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/REFERENCE_DATA.md#4-install-gtf-and-hgnc-resources)
+- [Synthetic GTF/HGNC fixtures](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/tree/main/examples/synthetic)
+
+License: MIT. No CURE-NGS patient-level data are distributed here.
