@@ -21,27 +21,31 @@ panel harmonization framework.
 ## Install the supported Docker distribution
 
 Install [Docker Desktop](https://docs.docker.com/desktop/) or
-[Docker Engine](https://docs.docker.com/engine/install/), then build:
+[Docker Engine](https://docs.docker.com/engine/install/), then pull the public
+core image without a GitHub login:
 
 ```bash
-git clone https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework.git
+docker pull ghcr.io/ncdcbioinformatics/cure-ngs-harmonizer:0.2.3-core
+```
+
+To build the identical `v0.2.3` release source instead:
+
+```bash
+git clone --branch v0.2.3 --depth 1 https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework.git
 cd cure-ngs-panel-harmonization-framework
-docker build --file docker/Dockerfile.core --tag cure-ngs-harmonizer:0.1.0-core .
+docker build --file docker/Dockerfile.core --tag cure-ngs-harmonizer:0.2.3-core .
 ```
 
-After release `0.1.0` appears in the umbrella **Packages** panel:
-
-```bash
-docker pull ghcr.io/ncdcbioinformatics/cure-ngs-harmonizer:0.1.0-core
-```
-
-Use the source build while no umbrella package is published.
+The supported container is the umbrella repository's audited
+[`v0.2.3` distribution](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/releases/tag/v0.2.3).
 
 ## Verify and run this capability
 
 The reviewer walkthrough verifies directional normalization of `EML4-ALK`:
 
 ```bash
+git clone --branch v0.2.3 --depth 1 https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework.git
+cd cure-ngs-panel-harmonization-framework
 bash scripts/run_reviewer_demo.sh
 ```
 
@@ -50,7 +54,8 @@ Direct component command with bundled synthetic resources:
 ```bash
 docker run --rm \
   --volume "$PWD/examples:/examples:ro" \
-  cure-ngs-harmonizer:0.1.0-core normalize-fusion EML4-ALK \
+  ghcr.io/ncdcbioinformatics/cure-ngs-harmonizer:0.2.3-core \
+  normalize-fusion EML4-ALK \
   --gtf /examples/synthetic/genes.gtf \
   --hgnc /examples/synthetic/hgnc.tsv
 ```
@@ -71,5 +76,6 @@ metadata reports 0.2.0; the umbrella release lock preserves both facts.
 - [Gene/fusion commands](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/COMMAND_REFERENCE.md#gene-and-fusion-normalization)
 - [GTF and HGNC setup](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/main/docs/REFERENCE_DATA.md#4-install-gtf-and-hgnc-resources)
 - [Synthetic GTF/HGNC fixtures](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/tree/main/examples/synthetic)
+- [Clean public-image validation](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/actions/runs/33350796468)
 
 License: MIT. No CURE-NGS patient-level data are distributed here.
