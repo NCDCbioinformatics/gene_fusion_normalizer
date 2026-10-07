@@ -20,31 +20,37 @@ panel harmonization framework.
 
 ## Install the supported Docker distribution
 
+The supported unified distribution is 0.2.6. This component can run in the
+core image; no host Python installation is required. The
+[Docker-only quickstart](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/blob/v0.2.6/docs/DOCKER_ONLY_QUICKSTART.md)
+explains image-contained self-tests, local output mounts, and user-selected
+external resource paths. Historical component releases remain unchanged.
+
 Install [Docker Desktop](https://docs.docker.com/desktop/) or
 [Docker Engine](https://docs.docker.com/engine/install/), then pull the public
 core image without a GitHub login:
 
 ```bash
-docker pull ghcr.io/ncdcbioinformatics/cure-ngs-harmonizer:0.2.3-core
+docker pull ghcr.io/ncdcbioinformatics/cure-ngs-harmonizer:0.2.6-core
 ```
 
-To build the identical `v0.2.3` release source instead:
+To build the identical `v0.2.6` release source instead:
 
 ```bash
-git clone --branch v0.2.3 --depth 1 https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework.git
+git clone --branch v0.2.6 --depth 1 https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework.git
 cd cure-ngs-panel-harmonization-framework
-docker build --file docker/Dockerfile.core --tag cure-ngs-harmonizer:0.2.3-core .
+docker build --file docker/Dockerfile.core --tag cure-ngs-harmonizer:0.2.6-core .
 ```
 
 The supported container is the umbrella repository's audited
-[`v0.2.3` distribution](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/releases/tag/v0.2.3).
+[`v0.2.6` distribution](https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework/releases/tag/v0.2.6).
 
 ## Verify and run this capability
 
 The reviewer walkthrough verifies directional normalization of `EML4-ALK`:
 
 ```bash
-git clone --branch v0.2.3 --depth 1 https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework.git
+git clone --branch v0.2.6 --depth 1 https://github.com/NCDCbioinformatics/cure-ngs-panel-harmonization-framework.git
 cd cure-ngs-panel-harmonization-framework
 bash scripts/run_reviewer_demo.sh
 ```
@@ -54,7 +60,7 @@ Direct component command with bundled synthetic resources:
 ```bash
 docker run --rm \
   --volume "$PWD/examples:/examples:ro" \
-  ghcr.io/ncdcbioinformatics/cure-ngs-harmonizer:0.2.3-core \
+  ghcr.io/ncdcbioinformatics/cure-ngs-harmonizer:0.2.6-core \
   normalize-fusion EML4-ALK \
   --gtf /examples/synthetic/genes.gtf \
   --hgnc /examples/synthetic/hgnc.tsv
